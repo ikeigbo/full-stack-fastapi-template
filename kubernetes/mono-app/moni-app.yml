@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ikeigbo/python-ecommcerce.github
+    targetRevision: HEAD
+    path: ./kubernetes/mono-app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: python-ecommcerce
+  syncPolicy:
+    syncOptions:
+
+    automated:
+      prune: true
+      selfHeal: true
